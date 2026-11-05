@@ -17,7 +17,7 @@ The browser sends this body:
 {"displayName":"Changed by cross-site form","padding":"="}
 ```
 
-The Route Handlers contain no CORS configuration, `Origin` check or CSRF token check, like the Route Handler examples in the Next.js docs.
+The Route Handlers contain no CORS configuration, `Origin` check or CSRF token check, as documented in the [`route.js` Request Body example](https://nextjs.org/docs/app/api-reference/file-conventions/route#request-body).
 
 ## Steps to reproduce
 
@@ -39,7 +39,7 @@ Browser: 156.0.8078.80
 
 Observed on Next.js 16.4.1 with both `next dev` and `next build` + `next start`.
 
-## Case 1: account change with `SameSite=None`
+## 1. Acting as the logged-in visitor (`SameSite=None` session cookie)
 
 `app/csrf-account/route.ts` sets the session cookie with:
 
@@ -51,7 +51,7 @@ The browser sends this cookie with the cross-site form. The `POST` handler chang
 
 With `SameSite=Lax`, the browser doesn't send the cookie and the handler returns `401`.
 
-## Case 2: login with `SameSite=Lax`
+## 2. Logging the visitor in as the attacker (`SameSite=Lax` session cookie)
 
 `app/login/route.ts` sets the session cookie with:
 
