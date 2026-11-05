@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
-import { chromium } from '@playwright/test';
+import { chromium, type Page, type Request } from '@playwright/test';
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 
-async function submitCrossSiteForm(page, path, buttonName) {
-  const methods = [];
-  function recordRequest(request) {
+async function submitCrossSiteForm(page: Page, path: string, buttonName: string) {
+  const methods: string[] = [];
+  function recordRequest(request: Request) {
     if (request.url() === `http://localhost:3000${path}`) methods.push(request.method());
   }
   page.on('request', recordRequest);
@@ -17,6 +17,7 @@ async function submitCrossSiteForm(page, path, buttonName) {
   page.off('request', recordRequest);
   // No OPTIONS preflight
   assert.deepEqual(methods, ['POST']);
+  assert(response);
   return response;
 }
 

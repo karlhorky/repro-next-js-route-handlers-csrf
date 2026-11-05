@@ -2,9 +2,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "attacker": "node attacker.js",
+    "attacker-site": "node attacker-site.ts",
     "build": "next build",
-    "check": "node check.js",
+    "check-csrf": "node check-csrf.ts",
     "dev": "next dev",
     "start": "next start"
   },

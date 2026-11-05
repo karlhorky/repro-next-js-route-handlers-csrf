@@ -23,13 +23,14 @@ The Route Handlers contain no CORS configuration, `Origin` check or CSRF token c
 
 1. Install dependencies: `pnpm install`
 2. Build and start Next.js on `localhost:3000`: `pnpm build && pnpm start`
-3. In a second terminal, start the attacker pages on `127.0.0.1:3001` (a different site): `pnpm attacker`
-4. In a third terminal, run the browser checks with Chrome: `pnpm check`
+3. In a second terminal, start the attacker pages on `127.0.0.1:3001` (a different site): `pnpm attacker-site`
+4. In a third terminal, run the browser checks with Chrome: `pnpm check-csrf`
 
-`pnpm check` logs in as `victim` with a same-origin `fetch()`, submits each attacker form and reads the result back with a same-origin request:
+`pnpm check-csrf` logs in as `victim` with a same-origin `fetch()`, submits each attacker form and reads the result back with a same-origin request:
 
 ```bash
-$ pnpm check
+$ pnpm check-csrf
+$ node check-csrf.ts
 Browser: 156.0.8078.80
 {"case":"account change","sameSite":"None","crossSiteStatus":200,"displayNameAfter":"Changed by cross-site form"}
 {"case":"account change","sameSite":"Lax","crossSiteStatus":401,"displayNameAfter":"Original name"}
